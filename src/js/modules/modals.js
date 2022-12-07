@@ -1,6 +1,6 @@
 const modals = () => {
-   const modalTimeout = showModalByTime(".popup", 3000);
-   
+   const modalTimeout = showModalByTime(".popup", 10000);
+
    function bindModal(triggerSelector, modalSelector, closeSelector) {
       const triggers = document.querySelectorAll(triggerSelector);
       const modal = document.querySelector(modalSelector);
