@@ -19,13 +19,15 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass) => {
 
    header.addEventListener("click", (e) => {
       const target = e.target;
+      const targetParent = target.parentNode;
+      const tabSelectorClass = tabSelector.replace(/\./, "");
       if (
          target &&
-         (target.classList.contains(tabSelector.replace(/\./, "")) ||
-            target.parentNode.classList.contains(tabSelector.replace(/\./, "")))
+         (target.classList.contains(tabSelectorClass) ||
+            targetParent.classList.contains(tabSelectorClass))
       ) {
          tabs.forEach((tab, i) => {
-            if (target == tab || target.parentNode == tab) {
+            if (target == tab || targetParent == tab) {
                hideTabContent();
                showTabContent(i);
             }
