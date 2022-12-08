@@ -36,7 +36,7 @@ gulp.task('build-ts', () => {
         }
       })
     )
-    .pipe(gulp.dest(dist))
+    .pipe(gulp.dest(dist + '/js'))
     .on('end', browsersync.reload);
 });
 
@@ -102,7 +102,7 @@ gulp.task('build-prod-ts', () => {
         }
       })
     )
-    .pipe(gulp.dest(dist));
+    .pipe(gulp.dest(dist + '/js'));
 });
 
 gulp.task('build', gulp.parallel('copy-html', 'copy-assets', 'build-ts'));
