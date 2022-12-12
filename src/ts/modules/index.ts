@@ -1,3 +1,1 @@
-import { modals } from "./modals";
-
-export {modals}
+export {modals} from './modals';

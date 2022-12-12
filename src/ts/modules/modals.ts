@@ -1,4 +1,4 @@
-const modals = () => {
+export const modals = () => {
   const modalTimeout = showModalByTime('.popup', 10000);
 
   interface IModalSelectors {
@@ -7,14 +7,14 @@ const modals = () => {
     closeSelector: string;
   }
 
-  function bindModal({
-    triggerSelector,
-    modalSelector,
-    closeSelector
-  }: IModalSelectors) {
-    const triggers = document.querySelectorAll(triggerSelector);
-    const modal = document.querySelector(modalSelector) as HTMLElement;
-    const close = document.querySelector(closeSelector) as HTMLElement;
+  function bindModal(selectors: IModalSelectors) {
+    const triggers = document.querySelectorAll(selectors.triggerSelector);
+    const modal = document.querySelector(
+      selectors.modalSelector
+    ) as HTMLElement;
+    const close = document.querySelector(
+      selectors.closeSelector
+    ) as HTMLElement;
     modal.classList.add('hide');
 
     triggers.forEach(trigger => {
@@ -84,5 +84,3 @@ const modals = () => {
   bindModal(popupEngineerSelectors);
   bindModal(popupSelectors);
 };
-
-export {modals};
