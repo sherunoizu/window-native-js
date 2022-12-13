@@ -1,5 +1,6 @@
 import {modals} from './modules';
 import {tabs} from './modules';
+import {forms} from './modules';
 
 import './slider';
 
@@ -17,4 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
     contentSelector: '.decoration_content > div > div',
     activeClass: 'after_click'
   });
+  forms();
 });
