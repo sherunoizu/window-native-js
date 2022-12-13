@@ -1,1 +1,4 @@
-export {modals} from './modals';
+export {tabs} from './tabs';
+
+export { modals } from './modals';
+
