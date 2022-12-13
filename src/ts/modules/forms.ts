@@ -27,7 +27,7 @@ export const forms = (): void => {
     const statusMessage = document.querySelector('.status') as HTMLDivElement;
     statusMessage.textContent = message.loading;
 
-    let result = await fetch(url, {
+    const result = await fetch(url, {
       method: 'POST',
       body: data
     });
@@ -43,15 +43,15 @@ export const forms = (): void => {
     form.addEventListener('submit', e => {
       e.preventDefault();
 
-      let statusMessage = document.createElement('div');
+      const statusMessage = document.createElement('div');
       statusMessage.classList.add('status');
       form.appendChild(statusMessage);
 
       const formData = new FormData(form);
 
       postData('assets/server.php', formData)
-        .then(result => {
-          console.log(result);
+        .then(postDataResult => {
+          console.log({postDataResult});
           statusMessage.textContent = message.success;
         })
         .catch(() => (statusMessage.textContent = message.failure))
