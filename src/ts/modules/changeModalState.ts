@@ -43,9 +43,8 @@ export const changeModalState = (state: IModalState) => {
               element.getAttribute('type') === 'checkbox' &&
               property === 'profile'
             ) {
-              i === 0
-                ? (state[property] = 'Холодное')
-                : (state[property] = 'Теплое');
+              
+              state[property] = i === 0 ? 'Холодное' : 'Теплое';
 
               elementsNodeList.forEach((checkbox, j) => {
                 checkbox.checked = false;

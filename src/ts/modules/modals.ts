@@ -21,6 +21,12 @@ export const modals = () => {
       '[data-modal]'
     ) as NodeListOf<HTMLElement>;
 
+    const hideAllModals = (): void => {
+      windows.forEach(window => {
+        window.style.display = 'none';
+      });
+    };
+
     triggers.forEach(trigger => {
       trigger.addEventListener('click', e => {
         if (e.target) {
@@ -28,26 +34,19 @@ export const modals = () => {
           showModal(modal);
         }
 
-        windows.forEach(window => {
-          window.style.display = 'none';
-        });
+        hideAllModals();
       });
     });
 
     close.addEventListener('click', () => {
       hideModal(modal);
 
-      windows.forEach(window => {
-        window.style.display = 'none';
-      });
+      hideAllModals();
     });
 
     modal.addEventListener('click', e => {
       if (e.target === modal && selectors.closeClickOverlay) {
-        windows.forEach(window => {
-          window.style.display = 'none';
-        });
-
+        hideAllModals();
         hideModal(modal);
       }
     });
