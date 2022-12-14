@@ -5,6 +5,7 @@ export const modals = () => {
     triggerSelector: string;
     modalSelector: string;
     closeSelector: string;
+    closeClickOverlay: boolean;
   }
 
   function bindModal(selectors: IModalSelectors) {
@@ -16,6 +17,15 @@ export const modals = () => {
       selectors.closeSelector
     ) as HTMLElement;
     modal.classList.add('hide');
+    const windows = document.querySelectorAll(
+      '[data-modal]'
+    ) as NodeListOf<HTMLElement>;
+
+    const hideAllModals = (): void => {
+      windows.forEach(window => {
+        window.style.display = 'none';
+      });
+    };
 
     triggers.forEach(trigger => {
       trigger.addEventListener('click', e => {
@@ -23,15 +33,20 @@ export const modals = () => {
           e.preventDefault();
           showModal(modal);
         }
+
+        hideAllModals();
       });
     });
 
     close.addEventListener('click', () => {
       hideModal(modal);
+
+      hideAllModals();
     });
 
     modal.addEventListener('click', e => {
-      if (e.target === modal) {
+      if (e.target === modal && selectors.closeClickOverlay) {
+        hideAllModals();
         hideModal(modal);
       }
     });
@@ -72,15 +87,41 @@ export const modals = () => {
   const popupEngineerSelectors: IModalSelectors = {
     triggerSelector: '.popup_engineer_btn',
     modalSelector: '.popup_engineer',
-    closeSelector: '.popup_engineer .popup_close'
+    closeSelector: '.popup_engineer .popup_close',
+    closeClickOverlay: true
   };
 
-  const popupSelectors = {
+  const popupSelectors: IModalSelectors = {
     triggerSelector: '.phone_link',
     modalSelector: '.popup',
-    closeSelector: '.popup .popup_close'
+    closeSelector: '.popup .popup_close',
+    closeClickOverlay: true
+  };
+
+  const popupCalcSelectors: IModalSelectors = {
+    triggerSelector: '.popup_calc_btn',
+    modalSelector: '.popup_calc',
+    closeSelector: '.popup_calc_close',
+    closeClickOverlay: true
+  };
+
+  const popupProfileSelectors: IModalSelectors = {
+    triggerSelector: '.popup_calc_button',
+    modalSelector: '.popup_calc_profile',
+    closeSelector: '.popup_calc_profile_close',
+    closeClickOverlay: false
+  };
+
+  const popupProfileEndSelectors: IModalSelectors = {
+    triggerSelector: '.popup_calc_profile_button',
+    modalSelector: '.popup_calc_end',
+    closeSelector: '.popup_calc_end_close',
+    closeClickOverlay: false
   };
 
   bindModal(popupEngineerSelectors);
   bindModal(popupSelectors);
+  bindModal(popupCalcSelectors);
+  bindModal(popupProfileSelectors);
+  bindModal(popupProfileEndSelectors);
 };

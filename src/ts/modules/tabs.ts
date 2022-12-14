@@ -3,24 +3,31 @@ interface ITabsSelectors {
   tabSelector: string;
   contentSelector: string;
   activeClass: string;
+  display?: 'flex' | 'block' | 'inline-block';
 }
 
-const tabs = (selectors: ITabsSelectors) => {
-  const header = document.querySelector(selectors.headerSelector) as Element;
-  const tabs = document.querySelectorAll(selectors.tabSelector);
+const tabs = ({
+  headerSelector,
+  tabSelector,
+  contentSelector,
+  activeClass,
+  display = 'block'
+}: ITabsSelectors) => {
+  const header = document.querySelector(headerSelector) as Element;
+  const tabs = document.querySelectorAll(tabSelector);
   const contents = document.querySelectorAll(
-    selectors.contentSelector
+    contentSelector
   ) as NodeListOf<HTMLElement>;
 
   const hideTabContent = () => {
     contents.forEach(content => (content.style.display = 'none'));
 
-    tabs.forEach(tab => tab.classList.remove(selectors.activeClass));
+    tabs.forEach(tab => tab.classList.remove(activeClass));
   };
 
   const showTabContent = (i = 0) => {
-    contents[i].style.display = 'block';
-    tabs[i].classList.add(selectors.activeClass);
+    contents[i].style.display = display;
+    tabs[i].classList.add(activeClass);
   };
 
   hideTabContent();
@@ -29,7 +36,7 @@ const tabs = (selectors: ITabsSelectors) => {
   header.addEventListener('click', e => {
     const target = e.target as HTMLLinkElement;
     const targetParent = target.parentNode as HTMLElement;
-    const tabSelectorClass = selectors.tabSelector.replace(/\./, '');
+    const tabSelectorClass = tabSelector.replace(/\./, '');
 
     if (
       target &&

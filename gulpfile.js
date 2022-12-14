@@ -7,7 +7,10 @@ const browsersync = require('browser-sync');
 const dist = './dist/';
 
 gulp.task('copy-html', () => {
-  return gulp.src('./src/index.html').pipe(gulp.dest(dist)).pipe(browsersync.stream());
+  return gulp
+    .src('./src/index.html')
+    .pipe(gulp.dest(dist))
+    .pipe(browsersync.stream());
 });
 
 gulp.task('build-ts', () => {
@@ -77,23 +80,6 @@ gulp.task('build-prod-ts', () => {
               test: /\.tsx?$/,
               use: 'ts-loader',
               exclude: /node_modules/
-            },
-            {
-              test: /\.(js)x?$/,
-              exclude: /node_modules/,
-              use: 'babel-loader'
-            },
-            {
-              test: /\.(ts)x?$/,
-              exclude: /node_modules|\.d\.ts$/, // this line as well
-              use: {
-                loader: 'ts-loader',
-                options: {
-                  compilerOptions: {
-                    noEmit: false // this option will solve the issue
-                  }
-                }
-              }
             }
           ]
         },
@@ -107,6 +93,9 @@ gulp.task('build-prod-ts', () => {
 
 gulp.task('build', gulp.parallel('copy-html', 'copy-assets', 'build-ts'));
 
-gulp.task('build-prod', gulp.parallel('copy-html', 'copy-assets', 'build-prod-ts'));
+gulp.task(
+  'build-prod',
+  gulp.parallel('copy-html', 'copy-assets', 'build-prod-ts')
+);
 
 gulp.task('default', gulp.parallel('watch', 'build'));
