@@ -3,7 +3,7 @@ interface ITabsSelectors {
   tabSelector: string;
   contentSelector: string;
   activeClass: string;
-  display: 'flex' | 'block' | 'inline-block';
+  display?: 'flex' | 'block' | 'inline-block';
 }
 
 const tabs = ({
@@ -11,7 +11,7 @@ const tabs = ({
   tabSelector,
   contentSelector,
   activeClass,
-  display
+  display = 'block'
 }: ITabsSelectors) => {
   const header = document.querySelector(headerSelector) as Element;
   const tabs = document.querySelectorAll(tabSelector);

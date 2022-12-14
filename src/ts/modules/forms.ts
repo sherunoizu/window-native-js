@@ -1,15 +1,15 @@
-export const forms = (): void => {
+import {checkIsNumInputs} from './checkIsNumInputs';
+
+import {IModalState} from '../main';
+
+export const forms = (state: IModalState): void => {
   const forms = document.querySelectorAll('form');
   const inputs = document.querySelectorAll('input');
   const phoneInputs = document.querySelectorAll(
     'input[name="user_phone"]'
   ) as NodeListOf<HTMLInputElement>;
 
-  phoneInputs.forEach(input => {
-    input.addEventListener('input', e => {
-      input.value = input.value.replace(/\D/, '');
-    });
-  });
+  checkIsNumInputs('input[name="user_phone"]');
 
   interface IMessage {
     loading: string;
@@ -48,6 +48,13 @@ export const forms = (): void => {
       form.appendChild(statusMessage);
 
       const formData = new FormData(form);
+
+      if (form.getAttribute('data-calc') === 'end') {
+        let key: keyof IModalState;
+        for (key in state) {
+          formData.append(key, state[key].toString());
+        }
+      }
 
       postData('assets/server.php', formData)
         .then(postDataResult => {
