@@ -2,6 +2,7 @@ import {modals} from './modules';
 import {tabs} from './modules';
 import {forms} from './modules';
 import {changeModalState} from './modules';
+import {timer} from './modules';
 
 import './slider';
 
@@ -9,8 +10,8 @@ export interface IModalState {
   form: number;
   width: number;
   height: number;
-  type: string,
-  profile: string
+  type: string;
+  profile: string;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     type: '',
     profile: ''
   };
+  let deadline: string = '2022-12-31';
 
   changeModalState(modalState);
 
@@ -45,4 +47,5 @@ document.addEventListener('DOMContentLoaded', () => {
     display: 'inline-block'
   });
   forms(modalState);
+  timer('.container1', deadline);
 });
