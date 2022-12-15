@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     type: '',
     profile: ''
   };
-  let deadline: string = '2022-12-31';
+  const deadline: string = '2022-12-31';
 
   changeModalState(modalState);
 

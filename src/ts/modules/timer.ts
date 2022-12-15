@@ -8,11 +8,7 @@ export const timer = (containerId: string, deadline: string) => {
   }
 
   const addZeroToStringTimerValue = (num: number): string => {
-    if (num <= 9) {
-      return '0' + num;
-    } else {
-      return num.toString();
-    }
+    return num <= 9 ? ('0' + num) : num.toString()
   };
 
   const getTimeRemaining = (endtime: string): ITimerValues => {
