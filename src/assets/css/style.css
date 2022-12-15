@@ -12,6 +12,15 @@ html {
 
 .show {
   display: block;
+  justify-content: center;
+}
+
+.bigImg {
+  border-radius: 15px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  width: 30%;
+  height: 70%;
 }
 
 body {

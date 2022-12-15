@@ -3,6 +3,7 @@ import {tabs} from './modules';
 import {forms} from './modules';
 import {changeModalState} from './modules';
 import {timer} from './modules';
+import {images} from './modules';
 
 import './slider';
 
@@ -48,4 +49,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   forms(modalState);
   timer('.container1', deadline);
+  images();
 });
