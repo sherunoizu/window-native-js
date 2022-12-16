@@ -43,7 +43,6 @@ export const changeModalState = (state: IModalState) => {
               element.getAttribute('type') === 'checkbox' &&
               property === 'profile'
             ) {
-              
               state[property] = i === 0 ? 'Холодное' : 'Теплое';
 
               elementsNodeList.forEach((checkbox, j) => {
@@ -66,10 +65,18 @@ export const changeModalState = (state: IModalState) => {
         }
       });
     });
+
+    console.log(state);
   }
 
   const windowFormAction: IBindActions = {
     event: 'click',
+    elementsNodeList: windowForms,
+    property: 'form'
+  };
+
+  const windowKeyDownFormAction: IBindActions = {
+    event: 'keydown',
     elementsNodeList: windowForms,
     property: 'form'
   };
@@ -99,6 +106,7 @@ export const changeModalState = (state: IModalState) => {
   };
 
   bindActionToElements(windowFormAction);
+  bindActionToElements(windowKeyDownFormAction);
   bindActionToElements(windowWidthAction);
   bindActionToElements(windowHeightAction);
   bindActionToElements(windowTypeAction);

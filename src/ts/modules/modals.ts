@@ -12,7 +12,7 @@ export const modals = () => {
     const triggers = document.querySelectorAll(selectors.triggerSelector);
     const modal = document.querySelector(
       selectors.modalSelector
-    ) as HTMLElement;
+    ) as HTMLDivElement;
     const close = document.querySelector(
       selectors.closeSelector
     ) as HTMLElement;
@@ -20,22 +20,24 @@ export const modals = () => {
     const windows = document.querySelectorAll(
       '[data-modal]'
     ) as NodeListOf<HTMLElement>;
-    const scroll = calcScroll();
+    const scroll: number = calcScroll();
 
     const hideAllModals = (): void => {
       windows.forEach(window => {
-        window.style.display = 'none';
+        window.classList.remove('show');
+        window.classList.add('hide');
       });
     };
 
     triggers.forEach(trigger => {
       trigger.addEventListener('click', e => {
+        hideAllModals();
+
         if (e.target) {
           e.preventDefault();
           showModal(modal);
+          modal.focus();
         }
-
-        hideAllModals();
       });
     });
 
@@ -53,10 +55,13 @@ export const modals = () => {
     });
   }
 
-  function showModal(modal: Element) {
+  function showModal(modal: HTMLDivElement) {
     clearTimeout(modalTimeout);
+
     modal.classList.remove('hide');
     modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    document.body.style.marginRight = `${scroll}px`;
     document.addEventListener(
       'keydown',
       e => {

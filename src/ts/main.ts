@@ -47,6 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
     activeClass: 'do_image_more',
     display: 'inline-block'
   });
+  tabs({
+    headerSelector: '.balcon_icons',
+    tabSelector: '.balcon_icons_img',
+    contentSelector: '.big_img > img',
+    activeClass: 'do_image_more',
+    event: 'keydown',
+    display: 'inline-block'
+  });
   forms(modalState);
   timer('.container1', deadline);
   images();
