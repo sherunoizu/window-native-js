@@ -3,6 +3,7 @@ interface ITabsSelectors {
   tabSelector: string;
   contentSelector: string;
   activeClass: string;
+  event?: 'click' | 'keydown';
   display?: 'flex' | 'block' | 'inline-block';
 }
 
@@ -11,6 +12,7 @@ const tabs = ({
   tabSelector,
   contentSelector,
   activeClass,
+  event = 'click',
   display = 'block'
 }: ITabsSelectors) => {
   const header = document.querySelector(headerSelector) as Element;
@@ -33,22 +35,24 @@ const tabs = ({
   hideTabContent();
   showTabContent();
 
-  header.addEventListener('click', e => {
+  header.addEventListener(event, e => {
     const target = e.target as HTMLLinkElement;
     const targetParent = target.parentNode as HTMLElement;
     const tabSelectorClass = tabSelector.replace(/\./, '');
 
-    if (
-      target &&
-      (target.classList.contains(tabSelectorClass) ||
-        targetParent.classList.contains(tabSelectorClass))
-    ) {
-      tabs.forEach((tab, i) => {
-        if (target == tab || targetParent == tab) {
-          hideTabContent();
-          showTabContent(i);
-        }
-      });
+    if (event !== 'keydown' || (e as KeyboardEvent).code === 'Space') {
+      if (
+        target &&
+        (target.classList.contains(tabSelectorClass) ||
+          targetParent.classList.contains(tabSelectorClass))
+      ) {
+        tabs.forEach((tab, i) => {
+          if (target == tab || targetParent == tab) {
+            hideTabContent();
+            showTabContent(i);
+          }
+        });
+      }
     }
   });
 };
