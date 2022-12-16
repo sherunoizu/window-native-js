@@ -43,12 +43,13 @@ const tabs = ({
     const keydownEventCodeIsSpace: boolean =
       (e as KeyboardEvent).code === 'Space';
 
-    if (clickEvent || keydownEventCodeIsSpace) {
-      if (
-        target &&
-        (target.classList.contains(tabSelectorClass) ||
-          targetParent.classList.contains(tabSelectorClass))
-      ) {
+    const isPickEvent: boolean = clickEvent || keydownEventCodeIsSpace;
+    const isTargetWithClassExist: boolean =
+      target && (target.classList.contains(tabSelectorClass) ||
+        targetParent.classList.contains(tabSelectorClass));
+
+    if (isPickEvent && isTargetWithClassExist) {
+      {
         tabs.forEach((tab, i) => {
           if (target == tab || targetParent == tab) {
             hideTabContent();
