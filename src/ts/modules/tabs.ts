@@ -39,8 +39,11 @@ const tabs = ({
     const target = e.target as HTMLLinkElement;
     const targetParent = target.parentNode as HTMLElement;
     const tabSelectorClass = tabSelector.replace(/\./, '');
+    const clickEvent: boolean = event === 'click';
+    const keydownEventCodeIsSpace: boolean =
+      (e as KeyboardEvent).code === 'Space';
 
-    if (event !== 'keydown' || (e as KeyboardEvent).code === 'Space') {
+    if (clickEvent || keydownEventCodeIsSpace) {
       if (
         target &&
         (target.classList.contains(tabSelectorClass) ||

@@ -20,23 +20,24 @@ export const modals = () => {
     const windows = document.querySelectorAll(
       '[data-modal]'
     ) as NodeListOf<HTMLElement>;
-    const scroll = calcScroll();
+    const scroll: number = calcScroll();
 
     const hideAllModals = (): void => {
       windows.forEach(window => {
-        window.style.display = 'none';
+        window.classList.remove('show');
+        window.classList.add('hide');
       });
     };
 
     triggers.forEach(trigger => {
       trigger.addEventListener('click', e => {
+        hideAllModals();
+
         if (e.target) {
           e.preventDefault();
           showModal(modal);
           modal.focus();
         }
-
-        hideAllModals();
       });
     });
 
