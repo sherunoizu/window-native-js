@@ -20,6 +20,7 @@ export const modals = () => {
     const windows = document.querySelectorAll(
       '[data-modal]'
     ) as NodeListOf<HTMLElement>;
+    const scroll = calcScroll();
 
     const hideAllModals = (): void => {
       windows.forEach(window => {
@@ -71,6 +72,7 @@ export const modals = () => {
     modal.classList.remove('show');
     modal.classList.add('hide');
     document.body.style.overflow = '';
+    document.body.style.marginRight = `0px`;
   }
 
   function showModalByTime(selector: string, time: number) {
@@ -81,7 +83,24 @@ export const modals = () => {
       cuurentModal.classList.remove('hide');
       cuurentModal.classList.add('show');
       document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = `${scroll}px`;
     }, time);
+  }
+
+  function calcScroll(): number {
+    const div = document.createElement('div');
+
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+
+    document.body.appendChild(div);
+
+    const scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+
+    return scrollWidth;
   }
 
   const popupEngineerSelectors: IModalSelectors = {
